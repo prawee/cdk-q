@@ -1,0 +1,5 @@
+# -----------
+# API Server
+# -----------
+### Default
+GET http://localhost:3000/
