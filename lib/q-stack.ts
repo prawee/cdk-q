@@ -24,6 +24,7 @@ export class QStack extends cdk.Stack {
     });
 
     const triggerFn = new NodejsFunction(this, "Qtrigger", {
+      functionName: "q-trigger",
       entry: path.join(__dirname, "../src/lambda.ts"),
       handler: "handler",
       runtime: lambda.Runtime.NODEJS_20_X,
@@ -41,6 +42,7 @@ export class QStack extends cdk.Stack {
     queue.grantSendMessages(triggerFn);
 
     const workerFn = new NodejsFunction(this, "Qworker", {
+      functionName: "q-worker",
       entry: path.join(__dirname, "../src/worker.ts"),
       handler: "handler",
       runtime: lambda.Runtime.NODEJS_20_X,
