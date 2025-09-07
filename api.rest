@@ -1,5 +1,17 @@
 # -----------
 # API Server
 # -----------
+
+### Env
+@baseUrl={{$dotenv API_URL}}
+
 ### Default
-GET http://localhost:3000/
+GET {{baseUrl}}/
+
+### Trigger
+POST {{baseUrl}}/q/trigger
+Content-Type: application/json
+
+{
+    "message": "Hello World"
+}
