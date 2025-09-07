@@ -3,6 +3,7 @@ import { Construct } from "constructs";
 import * as sqs from "aws-cdk-lib/aws-sqs";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
+import { SqsEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
 import path from "path";
 
 export class QStack extends cdk.Stack {
@@ -36,8 +37,20 @@ export class QStack extends cdk.Stack {
         SQS_QUEUE_URL: queue.queueUrl,
       },
     });
-
     queue.grantSendMessages(triggerFn);
+
+    const workerFn = new NodejsFunction(this, "Qworker", {
+      entry: path.join(__dirname, "../src/worker.ts"),
+      handler: "handler",
+      runtime: lambda.Runtime.NODEJS_20_X,
+      memorySize: 256,
+      timeout: cdk.Duration.seconds(10),
+    });
+    queue.grantConsumeMessages(workerFn);
+
+    workerFn.addEventSource(new SqsEventSource(queue, {
+      batchSize: 1,
+    }));
 
     new cdk.CfnOutput(this, "QueueUrl", { value: queue.queueUrl });
   }
