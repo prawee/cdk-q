@@ -9,7 +9,7 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "dev": "nodemon src/server.ts"
+    "dev": "npm run build && nodemon"
   },
   "devDependencies": {
     "@hono/node-server": "^1.19.1",

@@ -1,0 +1,6 @@
+{
+    "watch": ["src/**/*.ts"],
+    "ext": "ts",
+    "ignore": ["node_modules/**/*", "cdk.out/**/*"],
+    "exec": "npx ts-node src/server.ts"
+}
