@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@hono/node-server": "^1.19.1",
+    "@types/aws-lambda": "^8.10.152",
     "@types/jest": "^29.5.14",
     "@types/node": "22.7.9",
     "aws-cdk": "2.1029.0",
@@ -25,6 +26,7 @@
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.883.0",
     "aws-cdk-lib": "2.213.0",
+    "aws-lambda": "^1.0.7",
     "constructs": "^10.0.0",
     "hono": "^4.9.6"
   },
