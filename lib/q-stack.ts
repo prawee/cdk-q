@@ -37,6 +37,7 @@ export class QStack extends cdk.Stack {
       },
       environment: {
         SQS_QUEUE_URL: queue.queueUrl,
+        SQS_DELAY_SECONDS: String(Number(process.env.SQS_DELAY_SECONDS ?? "120")),
       },
     });
     queue.grantSendMessages(triggerFn);
