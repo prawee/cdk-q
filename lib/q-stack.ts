@@ -4,6 +4,7 @@ import * as sqs from "aws-cdk-lib/aws-sqs";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { SqsEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
+import * as apigw from "aws-cdk-lib/aws-apigateway";
 import path from "path";
 
 export class QStack extends cdk.Stack {
@@ -52,6 +53,12 @@ export class QStack extends cdk.Stack {
       batchSize: 1,
     }));
 
+    const api = new apigw.LambdaRestApi(this, "Qapi", {
+      handler: triggerFn,
+      proxy: true,
+    });
+
+    new cdk.CfnOutput(this, "ApiUrl", { value: api.url });
     new cdk.CfnOutput(this, "QueueUrl", { value: queue.queueUrl });
   }
 }
